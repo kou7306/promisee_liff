@@ -1,16 +1,48 @@
+<!-- templates/index.html -->
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LIFF Map App</title>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2.14.0/sdk.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&libraries=places"></script>
 </head>
 <body>
     <h1>LIFF Map App</h1>
-    <div id="map" style="height: 400px;"></div>
-    <script src="script.js"></script>
+    <div>
+        <p id="userName"></p>
+        <p id="userLocation"></p>
+    </div>
+
+    <script>
+        async function initializeLiff() {
+            await liff.init({ liffId: '2002096181-bo2n93zQ' });
+            if (liff.isLoggedIn()) {
+                runApp();
+            } else {
+                liff.login();
+            }
+        }
+
+        function runApp() {
+            liff.getProfile().then(profile => {
+                const userName = profile.displayName;
+
+                liff.getGeolocation()
+                    .then(location => {
+                        const userLocationText = `Latitude: ${location.latitude}, Longitude: ${location.longitude}`;
+
+                        // Display user information on the page
+                        document.getElementById('userName').innerText = `User: ${userName}`;
+                        document.getElementById('userLocation').innerText = `Location: ${userLocationText}`;
+                    })
+                    .catch(error => {
+                        console.error('Error getting location', error);
+                    });
+            });
+        }
+
+        initializeLiff();
+    </script>
 </body>
 </html>
