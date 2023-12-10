@@ -20,13 +20,9 @@ function submitResponse(responseType) {
                 'response_type': responseType,
             }),
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            if (data.result) {
-                // If the result is true, close the LIFF window
-                liff.closeWindow();
-            } 
+        .then(response => {
+
+            liff.closeWindow();
                 // Handle the response from the server
         })
         .catch(error => {
