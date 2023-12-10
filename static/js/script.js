@@ -24,7 +24,7 @@ function submitResponse(responseType) {
         .then(data => {
 
             // Display the response with an alert
-            if (data.messeage=='yes') {
+            if (data.message=='yes') {
                 alert('えらいのだ!');  // 任意のメッセージを表示
             } else {
                 alert('やらかしたのだ〜');  // エラーメッセージを表示
