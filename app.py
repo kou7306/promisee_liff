@@ -18,7 +18,7 @@ def submit():
     db.session.commit()
 
     return 'Response submitted successfully!'
-
+a
 
 
 if __name__ == '__main__':
