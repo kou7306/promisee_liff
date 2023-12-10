@@ -15,18 +15,23 @@
     </div>
 
     <script>
-                // liffオブジェクトをグローバルスコープで宣言
+        // liffオブジェクトをグローバルスコープで宣言
         let liff;
-
+        
         async function initializeLiff() {
-            // liffオブジェクトを初期化
-            liff = await liff.init({ liffId: '2002096181-Ryql27BY' });
-            
+            try {
+                // LIFF SDKのスクリプトを読み込む
+                await liff.init({ liffId: '2002096181-Ryql27BY' });
+            } catch (e) {
+                console.error('Error initializing LIFF', e);
+            }
+        
             if (liff.isLoggedIn()) {
                 runApp();
             } else {
                 liff.login();
-            }}
+            }
+        }
 
         function runApp() {
             liff.getProfile().then(profile => {
