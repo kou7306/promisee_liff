@@ -22,10 +22,9 @@ function submitResponse(responseType) {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
 
             // Display the response with an alert
-            if (data.result=='yes') {
+            if (data.messeage=='yes') {
                 alert('えらいのだ!');  // 任意のメッセージを表示
             } else {
                 alert('やらかしたのだ〜');  // エラーメッセージを表示
