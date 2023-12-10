@@ -1,18 +1,36 @@
 liff.init({
     liffId: '2002096181-Ryql27BY', // Use own liffId
     withLoginOnExternalBrowser: true, // Enable automatic login process
-}).then(() => {
-    // Start to use liff's api
-    runApp();
-});
+})
 
 
-function runApp() {
+
+function submitResponse(responseType) {
     liff.getProfile().then(profile => {
-            const userName = profile.displayName;
-            document.getElementById('userName').innerText = `User: ${userName}`;
+        const userName = profile.displayName;
+
+            // Send data to Flask backend
+        fetch('/submit_response', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                'user_name': userName,
+                'response_type': responseType,
+            }),
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+            if (data.result) {
+                // If the result is true, close the LIFF window
+                liff.closeWindow();
+            } 
+                // Handle the response from the server
         })
         .catch(error => {
-            console.error('Error getting location', error);
+            console.error('Error submitting response', error);
         });
-    }
+    });
+}
