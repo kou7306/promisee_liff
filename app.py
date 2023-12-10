@@ -37,7 +37,7 @@ def submit():
     doc = doc_ref.document()
     doc.set(format)
 
-    return 'Response submitted successfully!'
+    jsonify({'result': response_type == 'yes'})
 
 
 if __name__ == '__main__':
