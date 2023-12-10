@@ -20,7 +20,7 @@ function submitResponse(responseType) {
                 'response_type': responseType,
             }),
         })
-        .then(response => response.text())
+        .then(response => response.json())
         .then(data => {
             console.log(data);
             if (data.result) {
